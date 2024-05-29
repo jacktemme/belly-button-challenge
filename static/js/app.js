@@ -3,12 +3,12 @@ function buildMetadata(sample) {
   d3.json("https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json").then((data) => {
 
     // get the metadata field
-    const metadata = data.metadata
+    const metadata = data.metadata;
   
     // Filter the metadata for the object with the desired sample number
     function dataFilter(row) {
       return row.id == sample
-    }
+    };
     let meta_filter = metadata.filter(dataFilter)[0];
     //console.log(meta_filter)
 
@@ -21,12 +21,12 @@ function buildMetadata(sample) {
     // tags for each key-value in the filtered metadata.
 
     for (let key in meta_filter) {
-    panel.append('p').text(`${key}: ${meta_filter[key]}`)
+    panel.append('p').text(`${key.toUpperCase()}: ${meta_filter[key]}`)
  
     };
 
   });
-}
+};
 
 // function to build both charts
 function buildCharts(sample) {
@@ -78,7 +78,7 @@ function buildCharts(sample) {
 
     // For the Bar Chart, map the otu_ids to a list of strings for your yticks
     let string_otu = otu_ids.map(data => String(`OTU ${data}`));
-
+  
     // Build a Bar Chart
     // Don't forget to slice and reverse the input data appropriately
     let trace2 = {
@@ -95,7 +95,9 @@ function buildCharts(sample) {
         title:"Number of Bacteria"},
       height: 500,
       width: 800,
-    }
+     
+  
+    };
 
     let bar_data = [trace2];
     // Render the Bar Chart
@@ -103,7 +105,7 @@ function buildCharts(sample) {
 
 
   });
-}
+};
 
 // Function to run on page load
 function init() {
@@ -112,7 +114,7 @@ function init() {
     // Get the names field
     const ids = data.names;
     // Use d3 to select the dropdown with id of `#selDataset`
-    let dropdown = d3.select('#selDataset')
+    let dropdown = d3.select('#selDataset');
 
     // Use the list of sample names to populate the select options
     // Hint: Inside a loop, you will need to use d3 to append a new
@@ -120,16 +122,16 @@ function init() {
   for (let i = 0; i < ids.length; i++) {
     id = ids[i]
     dropdown.append('option').text(id)
-  }
+  };
 
     // Get the first sample from the list
-  let sample = ids[0]
+  let sample = ids[0];
 
     // Build charts and metadata panel with the first sample
     buildMetadata(sample)
     buildCharts(sample)
   });
-}
+};
 
 // Function for event listener
 
@@ -139,7 +141,7 @@ function optionChanged(newSample) {
   buildCharts(newSample)
   // Build charts and metadata panel each time a new sample is selected
 
-}
+};
 
 // Initialize the dashboard
 init();
